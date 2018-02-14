@@ -12,4 +12,6 @@ public interface FragmetnInteraction {
 
      void fragmentPutData(Bundle bundle);
 
+     void fragmentTofragment(int id);
+
 }

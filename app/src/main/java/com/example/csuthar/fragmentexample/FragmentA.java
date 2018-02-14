@@ -4,6 +4,7 @@ package com.example.csuthar.fragmentexample;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ public class FragmentA extends Fragment implements View.OnClickListener {
     private String TAG=FragmentA.class.getSimpleName();
     private Context context;
     private FragmetnInteraction listner;
+    public static int resultCode=1;
     private View view;
     private Button save;
     private TextView textView;
@@ -112,6 +114,19 @@ public class FragmentA extends Fragment implements View.OnClickListener {
         super.onDestroyView();
         Log.e(TAG, "onDestroyView: " );
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e(TAG, "onActivityResult: "+requestCode+" "+resultCode+" "+data.getStringExtra("TEST") );
+
+
+    }
+    public void test(){
+        Log.e(TAG, "test: " );
+    }
+
+
 
     @Override
     public void onClick(View view) {

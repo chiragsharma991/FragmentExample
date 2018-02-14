@@ -2,6 +2,7 @@ package com.example.csuthar.fragmentexample;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -53,15 +55,30 @@ public class FragmentC extends Fragment {
         TextView textView=(TextView)view.findViewById(R.id.text);
         EditText phn=(EditText)view.findViewById(R.id.phn);
         EditText name=(EditText)view.findViewById(R.id.name);
+        Button save=(Button)view.findViewById(R.id.save);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listner.fragmentTransaction(0);
             }
         });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,Activity_one.class);
+                startActivityForResult(intent,1);
+
+            }
+        });
         // ProgressDialog progressDialog=new ProgressDialog(context);
         //progressDialog.setMessage("Loading ...");
         //progressDialog.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e(TAG, "onActivityResult: "+requestCode+" "+resultCode+" "+data );
     }
 
     @Override

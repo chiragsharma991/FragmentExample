@@ -1,5 +1,6 @@
 package com.example.csuthar.fragmentexample;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,11 +17,12 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
     private Handler handler;
     private int navItemIndex=0;
     private String TAG=this.getClass().getSimpleName();
-    private  String TAG_FRAGMENT_ONE="FragmentA";
-    private  String TAG_FRAGMENT_TWO="FragmentB";
-    private  String TAG_FRAGMENT_THREE="FragmentC";
-    private String CURRENT_TAG=TAG_FRAGMENT_ONE;
-    private Bundle bundle=null;
+    public static String TAG_FRAGMENT_ONE="FragmentA";
+    public static String  TAG_FRAGMENT_TWO="FragmentB";
+    public static String TAG_FRAGMENT_THREE="FragmentC";
+    public static  String CURRENT_TAG=TAG_FRAGMENT_ONE;
+    public static  Bundle bundle=null;
+    private FragmentA fragmentA;
 
 
     @Override
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                         android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment,CURRENT_TAG);
+                fragmentTransaction.add(R.id.frame, fragment,CURRENT_TAG);
                 fragmentTransaction.addToBackStack(CURRENT_TAG);
                 fragmentTransaction.commit();
 
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
                 navItemIndex=1;
                 CURRENT_TAG=TAG_FRAGMENT_TWO;
                 fragment = getHomeFragment();
-                if(bundle!=null)fragment.setArguments(bundle);
+              //  if(bundle!=null)fragment.setArguments(bundle);
                 loadHomeFragment(fragment);
                 break;
             case 2:
@@ -137,16 +139,24 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
     }
 
     @Override
+    public void fragmentTofragment(int id) {
+        FragmentA fragmentA=(FragmentA) getSupportFragmentManager().findFragmentByTag(MainActivity.TAG_FRAGMENT_ONE);
+        fragmentA.test();
+    }
+
+    @Override
     public void onBackPressed() {
 
         Log.e(TAG, "onBackPressed: "+getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_TWO) );
-        Fragment fragment=getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_TWO);
+        // if fragment is present then give fragment another wise null
+       /* Fragment fragment=getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_TWO);
         if(fragment instanceof FragmentB ){
             Log.e(TAG, "onBackPressed: fragment b okkk " );
-        }
-        getSupportFragmentManager().popBackStackImmediate(TAG_FRAGMENT_TWO, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        //getSupportFragmentManager().beginTransaction().commit();
-        // super.onBackPressed();
+        }*/
+       // getSupportFragmentManager().popBackStackImmediate(TAG_FRAGMENT_TWO, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().popBackStack();
+
+
 
 
     }
