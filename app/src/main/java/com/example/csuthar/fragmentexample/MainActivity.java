@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
         handler=new Handler();
         Toast.makeText(this,"activity_blue",Toast.LENGTH_SHORT).show();
         TextView text=(TextView)findViewById(R.id.text);
+
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                         android.R.anim.fade_out);
                 fragmentTransaction.add(R.id.frame, fragment,CURRENT_TAG);
-                fragmentTransaction.addToBackStack(CURRENT_TAG);
+              //  fragmentTransaction.addToBackStack(CURRENT_TAG);
                 fragmentTransaction.commit();
 
             }
@@ -136,12 +138,17 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
     public void fragmentPutData(Bundle bundle) {
         Log.e(TAG, "fragmentPutData: " );
         this.bundle=bundle;
+         getSupportFragmentManager().popBackStackImmediate(TAG_FRAGMENT_THREE, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+
+
     }
 
     @Override
     public void fragmentTofragment(int id) {
         FragmentA fragmentA=(FragmentA) getSupportFragmentManager().findFragmentByTag(MainActivity.TAG_FRAGMENT_ONE);
         fragmentA.test();
+
     }
 
     @Override
@@ -149,12 +156,19 @@ public class MainActivity extends AppCompatActivity implements FragmetnInteracti
 
         Log.e(TAG, "onBackPressed: "+getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_TWO) );
         // if fragment is present then give fragment another wise null
-       /* Fragment fragment=getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_TWO);
+        Fragment fragment=getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_TWO);
         if(fragment instanceof FragmentB ){
             Log.e(TAG, "onBackPressed: fragment b okkk " );
+            // getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+        }
+      /*  while (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStackImmediate();
         }*/
+
        // getSupportFragmentManager().popBackStackImmediate(TAG_FRAGMENT_TWO, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        getSupportFragmentManager().popBackStack();
+        // getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.frame)).commit();
 
 
 

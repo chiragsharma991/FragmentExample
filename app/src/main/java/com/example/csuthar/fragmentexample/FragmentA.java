@@ -133,8 +133,8 @@ public class FragmentA extends Fragment implements View.OnClickListener {
 
         if(view==save){
             Bundle bundle=new Bundle();
-            bundle.putString("NAME",name.getText().toString());
-            bundle.putLong("PHN", Long.parseLong(phn.getText().toString()));
+          //  bundle.putString("NAME",name.getText().toString());
+          //  bundle.putLong("PHN", Long.parseLong(phn.getText().toString()));
             listner.fragmentPutData(bundle);
         }else if(view==textView){
             listner.fragmentTransaction(1);
